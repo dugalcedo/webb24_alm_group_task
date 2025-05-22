@@ -1,7 +1,9 @@
 ### TODO: Add workflow to run tests on push and pull requests to main
 name: Jest Tests
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   test:
@@ -15,7 +17,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         ports:
-          - 5432: 5432
+          - 5432:5432
 
     steps:
       - name: Checkout code
