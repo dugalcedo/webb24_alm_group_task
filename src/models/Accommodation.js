@@ -1,39 +1,36 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/database");
 
-const User = sequelize.define("User", {
+const Accommodation = sequelize.define("Accommodation", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true
-    }
-  },
-  password: {
+  adress: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  profilePic: {
+  stad: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isUrl: true
-    }
+    allowNull: false
+  },
+  land: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  postnummer: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  hyra: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  rum: {
+    type: DataTypes.FLOAT,
+    allowNull: false
   }
 });
 
-
-
-module.exports = User;
+module.exports = Accommodation;
