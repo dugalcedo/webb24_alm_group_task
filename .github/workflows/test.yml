@@ -1,9 +1,9 @@
-### TODO: Add workflow to run tests on push and pull requests to main
 name: Jest Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # Runs on pushes to main branch
+  pull_request:         # Also runs on PRs
 
 jobs:
   test:
@@ -18,23 +18,24 @@ jobs:
           POSTGRES_DB: postgres
         ports:
           - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+      - uses: actions/checkout@v4
       
-      - name: Install
-        run: npm install
-
-      - name: Test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - run: npm install
+      
+      - run: npm test
         env:
           DB_HOST: localhost
-          DB_USERNAME: postgres
+          DB_USER: postgres
           DB_PASSWORD: postgres
           DB_NAME: postgres
-        run: npm run test
